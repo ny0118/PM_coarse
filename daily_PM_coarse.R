@@ -1,12 +1,12 @@
-#¼ÆËãÈÕ¾ùMEEµÄPM2.5¡¢PM10¡¢PMcoarse
-#Êı¾İÔ´£ºhttp://beijingair.sinaapp.com/  ÖĞ¹ú¿ÕÆøÖÊÁ¿
+#è®¡ç®—æ—¥å‡MEEçš„PM2.5ã€PM10ã€PMcoarse
+#æ•°æ®æºï¼šhttp://beijingair.sinaapp.com/  ä¸­å›½ç©ºæ°”è´¨é‡
 #2020-04-17
-#Author£º Dr. NAN Yang
+#Authorï¼š Dr. NAN Yang
 
 
 #(1)read Raw data and calcalate daily mean--------------------
 getwd()
-dirname='E:/¿ÆÑ§ÂÛÎÄ/2019Spring_PMcoarse/data/Õ¾µã_20150101-20151231'
+dirname='E:/XXX/ç«™ç‚¹_20150101-20151231'
 setwd(dirname)
 
 filename<-list.files(dirname,full.names=T,all.files=T,recursive=T)
@@ -21,15 +21,15 @@ for (f in 1:length(filename)) {
 #f=1
 MyData <- read.csv(file=filename[f], header=TRUE, sep=",")
 
-#µ±ÌìÊı¾İÖĞÓĞĞ§Ğ¡Ê±Êı
+#å½“å¤©æ•°æ®ä¸­æœ‰æ•ˆå°æ—¶æ•°
 hour<-dim(MyData)[1]/15 
 
-#µ±ÌìÊı¾İÖĞÓĞĞ§×ÜÕ¾µãÊı
+#å½“å¤©æ•°æ®ä¸­æœ‰æ•ˆæ€»ç«™ç‚¹æ•°
 dim(MyData)[2]
 
 type<-data.frame(type=MyData$type)
 
-#¸ù¾İÏàÍ¬typeÀàĞÍÖ±½ÓÇóÆ½¾ù£¬ËãÈÕ¾ùÖµ£¬na.rm=T
+#æ ¹æ®ç›¸åŒtypeç±»å‹ç›´æ¥æ±‚å¹³å‡ï¼Œç®—æ—¥å‡å€¼ï¼Œna.rm=T
 library(dplyr)
 
 daily_mean<-MyData %>% 
@@ -46,45 +46,45 @@ write.csv(daily_mean, file =dirname[f], row.names = F, quote = F)
 
 
 #(2)each site annual mean------------------
-gc() #ÊÍ·ÅÄÚ´æ
+gc() #é‡Šæ”¾å†…å­˜
 
-memory.size(T)#²é¿´ÒÑ·ÖÅäÄÚ´æ
-memory.size(F)#²é¿´ÒÑÊ¹ÓÃÄÚ´æ
-memory.limit()#²é¿´ÄÚ´æÉÏÏŞ
-memory.size()#²é¿´ÏÖÔÚµÄwork spaceµÄÄÚ´æÊ¹ÓÃ
-memory.limit(102400)#ÉèÖÃ³É100G
+memory.size(T)#æŸ¥çœ‹å·²åˆ†é…å†…å­˜
+memory.size(F)#æŸ¥çœ‹å·²ä½¿ç”¨å†…å­˜
+memory.limit()#æŸ¥çœ‹å†…å­˜ä¸Šé™
+memory.size()#æŸ¥çœ‹ç°åœ¨çš„work spaceçš„å†…å­˜ä½¿ç”¨
+memory.limit(102400)#è®¾ç½®æˆ100G
 
 getwd()
-dirname='E:/¿ÆÑ§ÂÛÎÄ/2019Spring_PMcoarse/data/Õ¾µã_20150101-20151231'
+dirname='E:/XXX/ç«™ç‚¹_20150101-20151231'
 setwd(dirname)
 filename<-list.files(dirname,full.names=T,all.files=T,recursive=T)
 #length(filename)
 
-#¶ÁÈ¡Õ¾µãĞÅÏ¢
-list_data<-read.csv("E:/¿ÆÑ§ÂÛÎÄ/2019Spring_PMcoarse/data/site_list_2020.04.05_vacnt filled.csv")
+#è¯»å–ç«™ç‚¹ä¿¡æ¯
+list_data<-read.csv("E:/XXX/site_list_2020.04.05_vacnt filled.csv")
 list_data_PM25<- list_data
 list_data_PM10<- list_data
 list_data_PMcoarse<- list_data
 
-#¶ÔfilenameÖ»½ØÈ¡YYYYMMDD£¬ÆäËû²»ÒªÁË,¸øÁĞ×öÁĞÃû
+#å¯¹filenameåªæˆªå–YYYYMMDDï¼Œå…¶ä»–ä¸è¦äº†,ç»™åˆ—åšåˆ—å
 #nchar(filename[1])
 day_name<-substring(filename[],67,74)
 #print(day_name)
 
 a<-c(rep(NA,length(list_data[,1])))
 
-#¶ÁÈ¡ËùÓĞÎÄ¼ş£¬°ÑÃ¿¸öÎÄ¼ş£¬¶ÔÓ¦siteµÄPM2.5ÈÕ¾ùÖµ¼ÓÎªÒ»ÁĞ£¬Ìùµ½list_data_PM25ºóÃæ
-#ÇÒÕâÒ»ÁĞµÄÁĞÃûÎª¡°YYYYMMDD¡±
+#è¯»å–æ‰€æœ‰æ–‡ä»¶ï¼ŒæŠŠæ¯ä¸ªæ–‡ä»¶ï¼Œå¯¹åº”siteçš„PM2.5æ—¥å‡å€¼åŠ ä¸ºä¸€åˆ—ï¼Œè´´åˆ°list_data_PM25åé¢
+#ä¸”è¿™ä¸€åˆ—çš„åˆ—åä¸ºâ€œYYYYMMDDâ€
 #f=1
 for (f in 1:length(filename)) {
 #for (f in 1:2) {
 
-#¶ÁÈ¡Ã¿ÈÕ¿ÕÆøÖÊÁ¿ĞÅÏ¢
+#è¯»å–æ¯æ—¥ç©ºæ°”è´¨é‡ä¿¡æ¯
 print(paste("processing file: ", filename[f]))
 MyData1 <- read.csv(file=filename[f], header=TRUE, sep=",")
 dim(MyData1)[2]
 
-#¸ølist¼ÓÒ»ÁĞ£¬ÇÒ°ÑĞÂ¼ÓµÄÁĞÃû¸Ä³ÉÈÕÆÚ
+#ç»™liståŠ ä¸€åˆ—ï¼Œä¸”æŠŠæ–°åŠ çš„åˆ—åæ”¹æˆæ—¥æœŸ
 list_data_PM25<- cbind(list_data_PM25,a)
 colnames(list_data_PM25)[6+f]=day_name[f]
 
@@ -95,7 +95,7 @@ list_data_PMcoarse<- cbind(list_data_PMcoarse,a)
 colnames(list_data_PMcoarse)[6+f]=day_name[f]
 
 
-#ÈÕ¾ùÖµ°ÑXÈ¥µô,Õë¶Ô2015
+#æ—¥å‡å€¼æŠŠXå»æ‰,é’ˆå¯¹2015
 site_name_daily=unlist(dimnames(MyData1)[2])
 site_name_daily[4]
 site_name_daily<-site_name_daily[-c(1,2,3)]
@@ -105,10 +105,10 @@ site_name_daily<-substring(site_name_daily[],2)
 
 length(site_name_daily)
 
-#±È¶ÔÈ»ºóÊı¾İºÏ²¢¡£
+#æ¯”å¯¹ç„¶åæ•°æ®åˆå¹¶ã€‚
 for (n in 1:1657) {
   for (m in 1:(dim(MyData1)[2]-3)) {
-    if(list_data$¼à²âµã±àÂë[n]==site_name_daily[m]){
+    if(list_data$ç›‘æµ‹ç‚¹ç¼–ç [n]==site_name_daily[m]){
       #PM2.5
       list_data_PM25[n,6+f]<-MyData1[12,3+m]
       
@@ -124,10 +124,10 @@ for (n in 1:1657) {
 
 }
 
-#(3)°ÑÈÕ¾ùÌùºÏ½á¹û´æ´¢------------------------
+#(3)æŠŠæ—¥å‡è´´åˆç»“æœå­˜å‚¨------------------------
 #csv
 getwd()
-dirname='E:/¿ÆÑ§ÂÛÎÄ/2019Spring_PMcoarse/0417-0418 ¼ÆËãÈÕ¾ùPMcoarse/'
+dirname='E:/XXX/0417-0418 è®¡ç®—æ—¥å‡PMcoarse/'
 setwd(dirname)
 write.csv(list_data_PM25, file ="2015_daily_PM25.csv", row.names = F, quote = F)
 write.csv(list_data_PM10, file ="2015_daily_PM10.csv", row.names = F, quote = F)
